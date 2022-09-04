@@ -23,5 +23,14 @@ class Driver(models.Model):
     loaded = models.BooleanField(default=False)
     vehicle_types = models.CharField(max_length=50, null=False)
 
+    @staticmethod
+    def validate_vehicle_types(vehicle_types: str):
+        try:
+            vehicle_types = VehicleTypes(vehicle_types).value
+        except ValueError as e:
+            raise VehicleTypeInvalid(
+                f"Vehicle Types {vehicle_types} is invalid"
+            ) from e
+
     def __str__(self):
         return self.first_name
