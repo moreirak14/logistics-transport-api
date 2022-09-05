@@ -3,6 +3,7 @@ import enum
 from django.db import models
 
 from apps.driver.exceptions import VehicleTypeInvalid
+from apps.shipping.models import Shipping
 
 
 class VehicleTypes(enum.Enum):
@@ -22,6 +23,7 @@ class Driver(models.Model):
     driver_license = models.CharField(max_length=5, null=False)
     loaded = models.BooleanField(default=False)
     vehicle_types = models.CharField(max_length=50, null=False)
+    shipping = models.ManyToManyField(Shipping)
 
     @staticmethod
     def validate_vehicle_types(vehicle_types: str):
