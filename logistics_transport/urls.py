@@ -18,9 +18,11 @@ from django.urls import include, path
 from rest_framework import routers
 
 from apps.driver.views import DriverView
+from apps.shipping.views import ShippingView
 
 APIRouter = routers.DefaultRouter()
 APIRouter.register(r"drivers", DriverView, basename="Drivers")
+APIRouter.register(r"shipping", ShippingView, basename="Shipping")
 
 urlpatterns = [
     path("", include(APIRouter.urls)),
