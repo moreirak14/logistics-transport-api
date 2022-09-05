@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from apps.shipping.models import Origin, Destination, Shipping
+
+from apps.shipping.models import Destination, Origin, Shipping
 from src.services.geolocation import GeolocationAPI
 
 
