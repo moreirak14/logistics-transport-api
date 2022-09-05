@@ -43,3 +43,8 @@ class Shipping(models.Model):
 
     def __str__(self):
         return f"Origin: {self.origin} | Destination: {self.destination}"
+
+    @staticmethod
+    def validate_zip_code(zip_code: str) -> None:
+        if len(zip_code) != 8:
+            raise ZipCodeInvalid(f"ZipCode {zip_code} is invalid")
