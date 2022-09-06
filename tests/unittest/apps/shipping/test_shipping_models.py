@@ -1,9 +1,9 @@
 from django.test import TestCase
-from apps.shipping.models import Shipping, Origin, Destination
+
+from apps.shipping.models import Destination, Origin
 
 
 class OriginModelTestCase(TestCase):
-
     def setUp(self):
         Origin.objects.create(
             street="Rua José Leopoldo Lima",
@@ -13,7 +13,7 @@ class OriginModelTestCase(TestCase):
             city="Santa Maria da Vitória",
             reference="Barbearua",
             state="BA",
-            zip_code="47640000"
+            zip_code="47640000",
         )
 
     def test_return_str(self):
@@ -23,7 +23,6 @@ class OriginModelTestCase(TestCase):
 
 
 class DestinationModelTestCase(TestCase):
-
     def setUp(self):
         Destination.objects.create(
             street="Rua Sabino Pedro",
@@ -33,11 +32,10 @@ class DestinationModelTestCase(TestCase):
             city="Balneário Camboriú",
             reference="Escola Edir",
             state="SC",
-            zip_code="88333425"
+            zip_code="88333425",
         )
 
     def test_return_str(self):
         destination = Destination.objects.get(id=1)
         expected_object_name = f"{destination.street} - {destination.city}"
         self.assertEqual(destination.__str__(), expected_object_name)
-
