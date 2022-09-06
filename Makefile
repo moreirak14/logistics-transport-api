@@ -19,6 +19,9 @@ requirements: ## Export requirements file based on poetry packages
 lint | pre-commit: ## Run the pre-commit config
 	poetry run pre-commit run -a
 
+test_unit_test_case: ## Run unit test locally
+	poetry run python manage.py test
+
 test: ## Run tests locally
 	poetry run pytest --cov --color=yes tests/
 
