@@ -1,11 +1,10 @@
 import requests
 
+from apps.shipping.services.exceptions import PageNotLoaded
 from config import settings
-from src.services.exceptions import PageNotLoaded
 
 
 class GeolocationAPI:
-
     @staticmethod
     def geolocation(zip_code: str) -> None:
         url = f"{settings.URL_GEOLOCATION}/?zip={zip_code}"
