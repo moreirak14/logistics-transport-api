@@ -15,15 +15,15 @@ class VehicleTypes(enum.Enum):
 
 
 class Driver(models.Model):
-    first_name = models.CharField(max_length=100, null=False)
-    last_name = models.CharField(max_length=100, null=False)
-    age = models.IntegerField(null=False)
-    gender = models.CharField(max_length=50, null=False)
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    age = models.IntegerField()
+    gender = models.CharField(max_length=50)
     own_vehicle = models.BooleanField(default=False)
-    driver_license = models.CharField(max_length=5, null=False)
+    driver_license = models.CharField(max_length=5)
     loaded = models.BooleanField(default=False)
-    vehicle_types = models.CharField(max_length=50, null=False)
-    shipping = models.ManyToManyField(Shipping)
+    vehicle_types = models.CharField(max_length=50)
+    shipping = models.ManyToManyField(Shipping, null=True, blank=True)
 
     @staticmethod
     def validate_vehicle_types(vehicle_types: str):
