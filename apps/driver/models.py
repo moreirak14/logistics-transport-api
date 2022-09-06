@@ -23,16 +23,16 @@ class Driver(models.Model):
     driver_license = models.CharField(max_length=5)
     loaded = models.BooleanField(default=False)
     vehicle_types = models.CharField(max_length=50)
-    shipping = models.ManyToManyField(Shipping, null=True, blank=True)
+    shipping = models.ForeignKey(
+        Shipping, null=True, blank=True, on_delete=models.CASCADE
+    )
 
     @staticmethod
     def validate_vehicle_types(vehicle_types: str):
         try:
             vehicle_types = VehicleTypes(vehicle_types).value
         except ValueError as e:
-            raise VehicleTypeInvalid(
-                f"Vehicle Types {vehicle_types} is invalid"
-            ) from e
+            raise VehicleTypeInvalid(f"Vehicle Types {vehicle_types} is invalid") from e
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
