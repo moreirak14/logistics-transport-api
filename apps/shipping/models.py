@@ -1,6 +1,9 @@
 from django.db import models
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
 
 from apps.shipping.exceptions import ZipCodeInvalid
+from apps.shipping.services.geolocation import GeolocationAPI
 
 
 class Origin(models.Model):
@@ -50,3 +53,25 @@ class Shipping(models.Model):
         """
         if len(zip_code) != 8:
             raise ZipCodeInvalid(f"ZipCode {zip_code} is invalid")
+
+
+@receiver(pre_save, sender=Shipping)
+def shipping_pre_save(sender, instance, **kwargs):
+    """
+    :argument instance
+    :return Save latitude and longitude of origin and destination
+    """
+    service = GeolocationAPI()
+
+    def _save_lat_long(model):
+        if zip_code := model.zip_code:
+            Shipping.validate_zip_code(zip_code=zip_code)
+            coordinates = service.get_geolocation(zip_code=zip_code)
+            model.longitude = coordinates["lon"]
+            model.latitude = coordinates["lat"]
+            model.save()
+
+    _save_lat_long(model=instance.origin)
+    _save_lat_long(model=instance.destination)
+
+    return instance
