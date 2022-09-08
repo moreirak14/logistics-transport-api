@@ -7,6 +7,10 @@ from config import settings
 class GeolocationAPI:
     @staticmethod
     def geolocation_api(zip_code: str) -> None:
+        """
+        :param zip_code
+        :return response Returns coordinates data
+        """
         url = f"{settings.URL_GEOLOCATION}/?zip={zip_code}"
         response = requests.get(url=url)
 
@@ -16,4 +20,8 @@ class GeolocationAPI:
         return response.json()
 
     def get_geolocation(self, zip_code: str) -> None:
+        """
+        :param zip_code
+        :return Calls the method that requests the API
+        """
         return self.geolocation_api(zip_code=zip_code)

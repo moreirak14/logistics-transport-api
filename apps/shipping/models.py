@@ -44,5 +44,9 @@ class Shipping(models.Model):
 
     @staticmethod
     def validate_zip_code(zip_code: str) -> None:
+        """
+        :argument zip_code
+        :raise Validation zip code
+        """
         if len(zip_code) != 8:
             raise ZipCodeInvalid(f"ZipCode {zip_code} is invalid")

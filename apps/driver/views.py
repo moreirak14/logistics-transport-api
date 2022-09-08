@@ -12,6 +12,10 @@ class DriverView(ModelViewSet):
     serializer_class = DriverSerializer
 
     def create(self, request: Request, *args, **kwargs):
+        """
+        :param request Creating driver
+        :return response Returns driver data
+        """
         data = request.data
         serializer = DriverSerializer(data=data)
 

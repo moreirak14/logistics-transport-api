@@ -12,6 +12,10 @@ class ShippingView(ModelViewSet):
     serializer_class = ShippingSerializer
 
     def create(self, request: Request, *args, **kwargs):
+        """
+        :param request Creating shipping
+        :return response Returns shipping data
+        """
         data = request.data
         serializer = ShippingSerializer(data=data)
 

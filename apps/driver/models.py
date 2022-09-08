@@ -27,12 +27,16 @@ class Driver(models.Model):
         Shipping, null=True, blank=True, on_delete=models.CASCADE
     )
 
+    def __str__(self):
+        return f"{self.first_name} {self.last_name}"
+
     @staticmethod
-    def validate_vehicle_types(vehicle_types: str):
+    def validate_vehicle_types(vehicle_types: str) -> None:
+        """
+        :argument vehicle_types
+        :raise Validation vehicle types
+        """
         try:
             vehicle_types = VehicleTypes(vehicle_types).value
         except ValueError as e:
             raise VehicleTypeInvalid(f"Vehicle Types {vehicle_types} is invalid") from e
-
-    def __str__(self):
-        return f"{self.first_name} {self.last_name}"
