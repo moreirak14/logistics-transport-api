@@ -22,9 +22,6 @@ class DriverView(ModelViewSet):
         if not serializer.is_valid():
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-        if vehicle_types := data["vehicle_types"]:
-            Driver.validate_vehicle_types(vehicle_types=vehicle_types)
-
         serializer.save()
 
         return Response(data=serializer.data, status=status.HTTP_201_CREATED)

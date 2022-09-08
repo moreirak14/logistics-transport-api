@@ -1,6 +1,8 @@
 import enum
 
 from django.db import models
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
 
 from apps.driver.exceptions import VehicleTypeInvalid
 from apps.shipping.models import Shipping
@@ -40,3 +42,10 @@ class Driver(models.Model):
             vehicle_types = VehicleTypes(vehicle_types).value
         except ValueError as e:
             raise VehicleTypeInvalid(f"Vehicle Types {vehicle_types} is invalid") from e
+
+
+@receiver(pre_save, sender=Driver)
+def my_handler(sender, instance, **kwargs):
+    if vehicle_types := instance.vehicle_types:
+        Driver.validate_vehicle_types(vehicle_types=vehicle_types)
+    return
