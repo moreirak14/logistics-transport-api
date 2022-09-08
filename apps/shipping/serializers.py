@@ -46,3 +46,9 @@ class ShippingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Shipping
         fields = "__all__"
+
+    def create(self, validated_data) -> Shipping:
+        origin = Origin.objects.create(**validated_data.pop("origin"))
+        destination = Destination.objects.create(**validated_data.pop(
+            "destination"))
+        return Shipping.objects.create(origin=origin, destination=destination)
