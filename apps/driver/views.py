@@ -29,6 +29,9 @@ class DriverView(ModelViewSet):
 
         return Response(data=serializer.data, status=status.HTTP_201_CREATED)
 
+    def partial_update(self, request, *args, **kwargs):
+        return super(DriverView, self).partial_update(request, *args, **kwargs)
+
     def get_queryset(self):
         own_vehicle = self.request.query_params.get("own_vehicle", None)
         loaded = self.request.query_params.get("loaded", None)
