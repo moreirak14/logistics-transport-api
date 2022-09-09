@@ -18,10 +18,7 @@ class ShippingView(ModelViewSet):
         """
         data = request.data
         serializer = ShippingSerializer(data=data)
-
-        if not serializer.is_valid():
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
+        serializer.is_valid(raise_exception=True)
         serializer.save()
 
         return Response(data=serializer.data, status=status.HTTP_201_CREATED)
