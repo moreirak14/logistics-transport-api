@@ -31,7 +31,7 @@ report: test ## Create test report
 	coverage html -d coverage_html
 
 copy-envs: ## Create secret file
-	@cp -n .example.secret.toml .secret.toml
+	@cp -n .example.secrets.toml .secrets.toml
 
 clean: ## Clean up
 	@find ./ -name '*.pyc' -exec rm -f {} \;
